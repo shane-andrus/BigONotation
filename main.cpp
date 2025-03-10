@@ -57,7 +57,7 @@ int main() {
         num = std::rand() % (INT_MAX - INT_MIN) + INT_MIN; // Random numbers in the full integer range
     }
 
-    std::cout << "O(1): First Element = " << getFirstElement(v) << std::endl;
+    std::cout << "O(1): First Element = " << timeFunction(getFirstElement, v)<< " ms" << std::endl;
 
     std::cout << "O(log n): Binary Search time: " << timeFunction(binarySearch, v, 5) << " ms" << std::endl;
 
