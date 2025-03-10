@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <chrono>
+#include <random> 
 
 // Timing function
 template <typename Func, typename... Args>
@@ -51,10 +52,13 @@ void generatePermutations(std::vector<int>& v, int l, int r) {
 }
 
 int main() {
-    std::srand(std::time(0));
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(INT_MIN, INT_MAX);
+
     std::vector<int> v(100000);
     for (int& num : v) {
-        num = std::rand() % (INT_MAX - INT_MIN) + INT_MIN; // Random numbers in the full integer range
+        num = dist(gen); // Random numbers in the full integer range
     }
 
     std::cout << "O(1): First Element = " << timeFunction(getFirstElement, v)<< " ms" << std::endl;
