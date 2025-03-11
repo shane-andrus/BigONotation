@@ -18,7 +18,7 @@ double timeFunction(Func func, Args&&... args) {
 
 // O(1) - Constant Time: Accessing an element in a vector by index
 int getFirstElement(const std::vector<int>& v) {
-    return 0;
+    return v.at(6);
 }
 
 // O(log n) - Logarithmic Time: Binary Search
@@ -28,7 +28,13 @@ bool binarySearch(const std::vector<int>& v, int target) {
 
 // O(n) - Linear Time: Finding the maximum element
 int findMax(const std::vector<int>& v) {
-    return 0;
+    int max = v.at(0);
+	for (int i : v) {
+		if (i > max) {
+			max = i;
+		}
+	}
+    return max;
 }
 
 // O(n log n) - Quasi-linear Time: Merge Sort
@@ -42,8 +48,11 @@ void bubbleSort(std::vector<int>& v) {
 }
 
 // O(2^n) - Exponential Time: Fibonacci using Recursion
-int fibonacci(int n) {
-    return 0;
+int fibonacci(int max) {
+    //base case
+    if (max <= 1) return max;
+    //recursive case
+    return fibonacci(max -1) + fibonacci(max - 2);
 }
 
 // O(n!) - Factorial Time: Generating all permutations of a vector
@@ -56,7 +65,7 @@ int main() {
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dist(INT_MIN, INT_MAX);
 
-    std::vector<int> v(100000);
+    std::vector<int> v(1000000);
     for (int& num : v) {
         num = dist(gen); // Random numbers in the full integer range
     }
@@ -66,17 +75,17 @@ int main() {
     std::cout << v.at(1000) << std::endl;
     std::cout << v.at(v.size() - 1) << std::endl << std::endl << std::endl;
 
-    // std::cout << "O(1): First Element = " << timeFunction(getFirstElement, v)<< " ms" << std::endl;
+    std::cout << "O(1): First Element = " << timeFunction(getFirstElement, v)<< " ms" << std::endl;
 
     // std::cout << "O(log n): Binary Search time: " << timeFunction(binarySearch, v, 5) << " ms" << std::endl;
 
-    // std::cout << "O(n): Max Element time: " << timeFunction(findMax, v) << " ms" << std::endl;
+    std::cout << "O(n): Max Element time: " << timeFunction(findMax, v) << " ms" << std::endl;
 
     // std::cout << "O(n log n): Merge Sorting time: " << timeFunction(mergeSort, v) << " ms" << std::endl;
 
     // std::cout << "O(n^2): Bubble Sorting time: " << timeFunction(bubbleSort, v) << " ms" << std::endl;
     
-    // std::cout << "O(2^n): Fibonacci(5) time: " << timeFunction(fibonacci, 5) << " ms" << std::endl;
+    std::cout << "O(2^n): Fibonacci(5) time: " << timeFunction(fibonacci, 50) << " ms" << std::endl;
     
     // std::cout << "O(n!): Generating Permutations (first 6 elements) time: " << timeFunction(generatePermutations, v, 0, 5) << " ms" << std::endl;
     
