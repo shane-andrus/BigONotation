@@ -58,7 +58,7 @@ int findMax(const std::vector<int>& v) {
 //}
 
 
-void mergeSortSimplified(std::vector<int>& v, int left, int mid, int right) {
+void merge(std::vector<int>& v, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
@@ -102,7 +102,7 @@ void mergeSortHelper(std::vector<int>& v, int left, int right) {
         mergeSortHelper(v, left, mid);
         mergeSortHelper(v, mid + 1, right);
 
-        mergeSort(v, left, mid, right);
+        merge(v, left, mid, right);
     }
 }
 
@@ -157,7 +157,7 @@ int main() {
 
      std::cout << "O(n): Max Element time: " << timeFunction(findMax, v) << " ms" << std::endl;
 
-     std::cout << "O(n log n): Merge Sorting time: " << timeFunction(mergeSortSimplified, v) << " ms" << std::endl;
+     std::cout << "O(n log n): Merge Sorting time: " << timeFunction(mergeSort, v) << " ms" << std::endl;
 
     // std::cout << "O(n^2): Bubble Sorting time: " << timeFunction(bubbleSort, v) << " ms" << std::endl;
     
