@@ -109,7 +109,19 @@ void mergeSort(std::vector<int>& v) {
 
 // O(n^2) - Quadratic Time: Bubble Sort
 void bubbleSort(std::vector<int>& v) {
-
+    bool swapped;
+    for (int outer = 0; outer < v.size() - 1; ++outer) {
+		swapped = false;
+		for (int inner = 0; inner < v.size() - outer - 1; ++inner) {
+			if (v.at(inner) > v.at(inner + 1)) {
+				std::swap(v.at(inner), v.at(inner + 1));
+				swapped = true;
+			}
+		}
+		if (!swapped) {
+			break;
+		}
+    }
 }
 
 // O(2^n) - Exponential Time: Fibonacci using Recursion
@@ -124,7 +136,18 @@ int fibonacci(int max) {
 
 // O(n!) - Factorial Time: Generating all permutations of a vector
 void generatePermutations(std::vector<int>& v, int l, int r) {
-
+    if (l == r) {
+		for (int num : v) {
+			std::cout << num << " ";
+		}
+		std::cout << std::endl;
+	}
+	else {
+		for (int i = l; i <= r; ++i) {
+			std::swap(v.at[l], v.at[i]);
+			generatePermutations(v, l + 1, r);
+			std::swap(v.at[l], v.at[i]);
+		}
 }
 
 int main() {
@@ -146,13 +169,13 @@ int main() {
 
 	 std::sort(v.begin(), v.end())
 
-    std::cout << "O(log n): Binary Search time: " << timeFunction(binarySearch, v, 5) << " ms" << std::endl;
+   // std::cout << "O(log n): Binary Search time: " << timeFunction(binarySearch, v, 5) << " ms" << std::endl;
 
-     std::cout << "O(n): Max Element time: " << timeFunction(findMax, v) << " ms" << std::endl;
+    // std::cout << "O(n): Max Element time: " << timeFunction(findMax, v) << " ms" << std::endl;
 
     // std::cout << "O(n log n): Merge Sorting time: " << timeFunction(mergeSort, v) << " ms" << std::endl;
 
-    // std::cout << "O(n^2): Bubble Sorting time: " << timeFunction(bubbleSort, v) << " ms" << std::endl;
+     std::cout << "O(n^2): Bubble Sorting time: " << timeFunction(bubbleSort, v) << " ms" << std::endl;
     
    //  std::cout << "O(2^n): Fibonacci(5) time: " << timeFunction(fibonacci, 100) << " ms" << std::endl;
     
