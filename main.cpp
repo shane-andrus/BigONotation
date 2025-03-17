@@ -149,7 +149,7 @@ void generatePermutations(std::vector<int>& v, int l, int r) {
 			std::swap(v.at[l], v.at[i]);
 		}
 }
-
+    // practice
 int main() {
     std::random_device rd;
     std::mt19937 gen(rd());
