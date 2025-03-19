@@ -123,7 +123,20 @@ void mergeSortSimplified(std::vector<int>& v) {
 
 // O(n^2) - Quadratic Time: Bubble Sort
 void bubbleSort(std::vector<int>& v) {
-
+    bool swapped;
+    for (int outer = 0; outer < v.size() - 1; ++outer) { // n - 1
+        swapped = false;
+        for (int inner = 0; inner < v.size() - outer - 1; ++inner) {
+            if (v.at(inner) > v.at(inner + 1)) {
+                std::swap(v[inner], v[inner + 1]);
+                swapped = true;
+            }
+        } // n -2
+        // (n)(n) = n^2
+        if (!swapped) {
+            break;
+        }
+    }
 }
 
 // O(2^n) - Exponential Time: Fibonacci using Recursion
@@ -135,8 +148,17 @@ int fibonacci(int max) {
 }
 
 // O(n!) - Factorial Time: Generating all permutations of a vector
-void generatePermutations(std::vector<int>& v, int l, int r) {
-
+void generatePermutations(std::vector<int>& v, int l, int r, std::vector<std::vector<int>> & results) {
+    // Base case: l == r, we have a permutation
+    if (l == r) {
+        results.push_back(v);
+        return;
+    }
+    for (int i = l; i <= r; ++i) {
+        std::swap(v[l], v[i]);
+        generatePermutations(v, l + 1, r, results);
+        std::swap(v[l], v[i]);
+    }
 }
 
 int main() {
@@ -145,7 +167,7 @@ int main() {
     std::uniform_int_distribution<int> dist(INT_MIN, INT_MAX);
     
 
-    std::vector<int> v(100000000);
+    std::vector<int> v(100000);
     for (int& num : v) {
         num = dist(gen); // Random numbers in the full integer range
     }
@@ -162,13 +184,14 @@ int main() {
 
     std::cout << "O(n): Max Element time: " << timeFunction(findMax, v) << " ms" << std::endl;
 
-    std::cout << "O(n log n): Merge Sorting time: " << timeFunction(mergeSortSimplified, v) << " ms" << std::endl;
+    //std::cout << "O(n log n): Merge Sorting time: " << timeFunction(mergeSortSimplified, v) << " ms" << std::endl;
 
     // std::cout << "O(n^2): Bubble Sorting time: " << timeFunction(bubbleSort, v) << " ms" << std::endl;
     
     // std::cout << "O(2^n): Fibonacci(5) time: " << timeFunction(fibonacci, 49) << " ms" << std::endl;
     
-    // std::cout << "O(n!): Generating Permutations (first 6 elements) time: " << timeFunction(generatePermutations, v, 0, 5) << " ms" << std::endl;
-    
+    std::vector<std::vector<int>> results;
+    std::cout << "O(n!): Generating Permutations (first 16 elements) time: " << timeFunction(generatePermutations, v, 0, 15, results) << " ms" << std::endl;
+    std::cout << "Size of results: " << results.size()<<std::endl;
     return 0;
 }
